@@ -69,6 +69,8 @@ jobs:
               node timewall.mjs --redis ${{secrets.redis}} --ip ${{matrix.ip}}
     next:
         runs-on: ubuntu-latest
+        permissions:
+            contents: write
         env:
             PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
         strategy:
