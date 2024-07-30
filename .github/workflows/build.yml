@@ -85,7 +85,7 @@ jobs:
               curl -O https://dev.azure.com/chaowenguo/ci/_apis/git/repositories/ci/items?path=/timebuckwall.mjs
               curl -O https://dev.azure.com/chaowenguo/ci/_apis/git/repositories/ci/items?path=/timewall.mjs
               curl -O https://dev.azure.com/chaowenguo/ci/_apis/git/repositories/ci/items?path=/alexamaster.mjs
-              if [ ${matrix.ip} == 52.167.216.178 ]
+              if [ ${{matrix.ip}} == 52.167.216.178 ]
               then
                   git add timebuckwall.mjs timewall.mjs alexamaster.mjs
                   git config user.name dummy
