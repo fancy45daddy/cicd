@@ -45,8 +45,14 @@ jobs:
               awk -i inplace '/^import /{seen++} seen && !/^import /{print "import formDataToStream from \x27./helpers/formDataToStream.js\x27;"; seen=0}1' $(npm root)/axios/lib/axios.js
               awk -i inplace '!found && /axios.default/ {print "axios.formDataToStream = formDataToStream;"; found=1}1' $(npm root)/axios/lib/axios.js
               Xvfb :99 &
-              DISPLAY=:99 node alexamaster.mjs &
-              sudo env DISPLAY=:99 PATH=$PATH HOME=$HOME node timebuckwall.mjs --browserstackName ${{secrets.browserstackName}} --browserstackKey ${{secrets.browserstackKey}} --gemini ${{secrets.gemini}} --redis ${{secrets.redis}} --ip ${{matrix.ip}} &
+              while true
+              do
+                  DISPLAY=:99 node alexamaster.mjs
+              done &
+              while true
+              do
+                  sudo env DISPLAY=:99 PATH=$PATH HOME=$HOME node timebuckwall.mjs --browserstackName ${{secrets.browserstackName}} --browserstackKey ${{secrets.browserstackKey}} --gemini ${{secrets.gemini}} --redis ${{secrets.redis}} --ip ${{matrix.ip}}
+              done &
               node timewall.mjs --redis ${{secrets.redis}} --ip ${{matrix.ip}}
     #clean:
     #    runs-on: ubuntu-latest
